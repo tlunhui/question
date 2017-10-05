@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--命名空间和mapper对应mapper相同，当前mapper为user-->
+<mapper namespace="org.thethreepig.question.dao.AnswersMapper">
+    <!---->
+    <resultMap id="BaseResultMap" type="org.thethreepig.question.model.Answers">
+        <result column="id" property="id"/>
+        <result column="users_id" property="userId"/>
+        <result column="content" property="content"/>
+        <result column="answers_time" property="answersTime"/>
+        <result column="support" property="support"/>
+        <result column="against" property="against"/>
+    </resultMap>
+
+    <!--封装列字段，以重用-->
+    <sql id="column_list">
+        id,
+        users_id,
+        content,
+        answers_time,
+        support,
+        against
+    </sql>
+
+    <!--通过主键查询-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="column_list"/>
+        from answers
+        <where>
+            deleteed=0
+            <if test="id!=null" >and id=#{id}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询对应的数据-->
+    <select id="selectSelective" resultMap="BaseResultMap">
+        select
+        <include refid="column_list"/>
+        from answers
+        <where>
+            deleteed=0
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and users_id=#{userId}</if>
+            <if test="password!=null"> and content=#{content}</if>
+            <if test="lastLoginTime!=null"> and answers_time=#{answersTime}</if>
+            <if test="errorCount!=null"> and support=#{support}</if>
+            <if test="lastErrorTime!=null"> and against=#{support}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询记录数量-->
+    <select id="countSelective">
+        select count(*) from answers
+        <where>
+            deleteed=0
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and users_id=#{userId}</if>
+            <if test="password!=null"> and content=#{content}</if>
+            <if test="lastLoginTime!=null"> and answers_time=#{answersTime}</if>
+            <if test="errorCount!=null"> and support=#{support}</if>
+            <if test="lastErrorTime!=null"> and against=#{support}</if>
+        </where>
+    </select>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteByPrimaryKey">
+        delete answers
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <!--通过判断是否有值，来生成对应的删除sql-->
+    <delete id="deleteSelective">
+        delete answers
+        <where>
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and users_id=#{userId}</if>
+            <if test="password!=null"> and content=#{content}</if>
+            <if test="lastLoginTime!=null"> and answers_time=#{answersTime}</if>
+            <if test="errorCount!=null"> and support=#{support}</if>
+            <if test="lastErrorTime!=null"> and against=#{support}</if>
+        </where>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into answers(
+        <include refid="column_list"/>)
+        values (
+        #{id},#{userId},#{content},#{answersTime},#{support},#{against}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="org.thethreepig.question.model.Users">
+        update answers set
+        users_id=#{userId},
+        content=#{content},
+        answers_time=#{answersTime},
+        support=#{support},
+        against=#{against}
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+
+    <update id="updateSelective">
+        update  answers set
+        <set>
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and users_id=#{userId}</if>
+            <if test="password!=null"> and content=#{content}</if>
+            <if test="lastLoginTime!=null"> and answers_time=#{answersTime}</if>
+            <if test="errorCount!=null"> and support=#{support}</if>
+            <if test="lastErrorTime!=null"> and against=#{support}</if>
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+</mapper>

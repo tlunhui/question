@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--命名空间和mapper对应mapper相同，当前mapper为user-->
+<mapper namespace="org.thethreepig.question.dao.PostsMapper">
+    <!---->
+    <resultMap id="BaseResultMap" type="org.thethreepig.question.model.Posts">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="users_id" property="usersId"/>
+        <result column="type_id" property="typeId"/>
+        <result column="content" property="content"/>
+        <result column="question_time" property="questionTime"/>
+    </resultMap>
+
+    <!--封装列字段，以重用-->
+    <sql id="column_list">
+        id,
+        title,
+        users_id,
+        type_id,
+        content,
+        question_time
+    </sql>
+
+    <!--通过主键查询-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="column_list"/>
+        from tb_posts
+        <where>
+            deleteed=0
+            <if test="id!=null" >and id=#{id}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询对应的数据-->
+    <select id="selectSelective" resultMap="BaseResultMap">
+        select
+        <include refid="column_list"/>
+        from tb_posts
+        <where>
+            deleteed=0
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and title=#{title}</if>
+            <if test="password!=null"> and users_id=#{usersId}</if>
+            <if test="lastLoginTime!=null"> and type_id=#{typeId}</if>
+            <if test="errorCount!=null"> and content=#{content}</if>
+            <if test="lastErrorTime!=null"> and question_time=#{question_time}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询记录数量-->
+    <select id="countSelective">
+        select count(*) from tb_posts
+        <where>
+            deleteed=0
+            <if test="id!=null">and id=#{id}</if>
+            <if test="name!=null"> and title=#{title}</if>
+            <if test="password!=null"> and users_id=#{usersId}</if>
+            <if test="lastLoginTime!=null"> and type_id=#{typeId}</if>
+            <if test="errorCount!=null"> and content=#{content}</if>
+            <if test="lastErrorTime!=null"> and question_time=#{question_time}</if>
+        </where>
+    </select>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteByPrimaryKey">
+        delete tb_posts
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <!--通过判断是否有值，来生成对应的删除sql-->
+    <delete id="deleteSelective">
+        delete tb_posts
+        <where>
+            <if test="id!=null">and id=#{id}</if>
+            <if test="name!=null"> and title=#{title}</if>
+            <if test="password!=null"> and users_id=#{usersId}</if>
+            <if test="lastLoginTime!=null"> and type_id=#{typeId}</if>
+            <if test="errorCount!=null"> and content=#{content}</if>
+            <if test="lastErrorTime!=null"> and question_time=#{question_time}</if>
+        </where>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_posts(
+        <include refid="column_list"/>)
+        values (
+        #{id},#{title},#{usersId},#{typeId},#{content},#{question_time}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="org.thethreepig.question.model.Users">
+        update tb_posts set
+        title=#{title},
+        users_id=#{usersId},
+        type_id=#{typeId},
+        content=#{content},
+        question_time=#{question_time}
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+
+    <update id="updateSelective">
+        update tb_posts set
+        <set>
+            <if test="id!=null">and id=#{id}</if>
+            <if test="name!=null"> and title=#{title}</if>
+            <if test="password!=null"> and users_id=#{usersId}</if>
+            <if test="lastLoginTime!=null"> and type_id=#{typeId}</if>
+            <if test="errorCount!=null"> and content=#{content}</if>
+            <if test="lastErrorTime!=null"> and question_time=#{question_time}</if>
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+</mapper>

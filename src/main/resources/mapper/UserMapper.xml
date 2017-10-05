@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--命名空间和mapper对应mapper相同，当前mapper为user-->
+<mapper namespace="org.thethreepig.question.dao.UserMapper">
+    <!---->
+    <resultMap id="BaseResultMap" type="org.thethreepig.question.model.Users">
+        <result column="id" property="id"/>
+        <result column="user_name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="error_count" property="errorCount"/>
+        <result column="last_error_time" property="lastErrorTime"/>
+        <result column="last_prompt_time" property="lastPromptTime"/>
+    </resultMap>
+
+    <!--封装列字段，以重用-->
+    <sql id="column_list">
+        id,
+        user_name,
+        password,
+        last_login_time,
+        error_count,
+        last_error_time,
+        last_prompt_time
+    </sql>
+
+    <!--通过主键查询-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+      select
+      <include refid="column_list"/>
+      from tb_users
+        <where>
+             deleteed=0
+             <if test="id!=null" >and id=#{id}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询对应的数据-->
+    <select id="selectSelective" resultMap="BaseResultMap">
+        select
+        <include refid="column_list"/>
+        from tb_users
+        <where>
+            deleteed=0
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and user_name=#{name}</if>
+            <if test="password!=null"> and password=#{password}</if>
+            <if test="lastLoginTime!=null"> and last_login_time=#{lastLoginTime}</if>
+            <if test="errorCount!=null"> and error_count=#{errorCount}</if>
+            <if test="lastErrorTime!=null"> and last_error_time=#{lastErrorTime}</if>
+            <if test="lastPromptTime!=null"> and last_prompt_time=#{lastPromptTime}</if>
+        </where>
+    </select>
+
+    <!--选择字段查询记录数量-->
+    <select id="countSelective">
+        select count(*) from tb_users
+        <where>
+            deleteed=0
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and user_name=#{name}</if>
+            <if test="password!=null"> and password=#{password}</if>
+            <if test="lastLoginTime!=null"> and last_login_time=#{lastLoginTime}</if>
+            <if test="errorCount!=null"> and error_count=#{errorCount}</if>
+            <if test="lastErrorTime!=null"> and last_error_time=#{lastErrorTime}</if>
+            <if test="lastPromptTime!=null"> and last_prompt_time=#{lastPromptTime}</if>
+        </where>
+    </select>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteByPrimaryKey">
+        delete tb_users
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <!--通过判断是否有值，来生成对应的删除sql-->
+    <delete id="deleteSelective">
+        delete tb_users
+        <where>
+            <if test="id!=null"> and id=#{id}</if>
+            <if test="name!=null"> and user_name=#{name}</if>
+            <if test="password!=null"> and password=#{password}</if>
+            <if test="lastLoginTime!=null"> and last_login_time=#{lastLoginTime}</if>
+            <if test="errorCount!=null"> and error_count=#{errorCount}</if>
+            <if test="lastErrorTime!=null"> and last_error_time=#{lastErrorTime}</if>
+            <if test="lastPromptTime!=null"> and last_prompt_time=#{lastPromptTime}</if>
+        </where>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_users(
+        <include refid="column_list"/>)
+        values (
+        #{id},#{name},#{password},#{lastLoginTime},#{errorCount},#{lastErrorTime},#{lastPromptTime}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="org.thethreepig.question.model.Users">
+        update tb_users set
+        user_name=#{name},
+        password=#{password},
+        last_login_time=#{lastLoginTime},
+        error_count=#{errorCount},
+        last_error_time=#{lastErrorTime},
+        last_prompt_time=#{lastPromptTime}
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+
+    <update id="updateSelective">
+        update tb_users set
+            <set>
+                <if test="id!=null">  id=#{id},</if>
+                <if test="name!=null">  user_name=#{name},</if>
+                <if test="password!=null">  password=#{password},</if>
+                <if test="lastLoginTime!=null">  last_login_time=#{lastLoginTime},</if>
+                <if test="errorCount!=null">  error_count=#{errorCount},</if>
+                <if test="lastErrorTime!=null">  last_error_time=#{lastErrorTime},</if>
+                <if test="lastPromptTime!=null">  last_prompt_time=#{lastPromptTime},</if>
+            </set>
+            <where>
+                and id=#{id}
+            </where>
+    </update>
+</mapper>

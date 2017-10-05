@@ -83,6 +83,12 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
         <!--junit依赖  用于单元测试-->
         <dependency>
             <groupId>junit</groupId>
