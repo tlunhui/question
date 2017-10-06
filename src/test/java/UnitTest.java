@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UnitTest {
 
     @Test
     public void Test() {
-        List<Users> list= usersService.Login("123456","123456");
+        List<Users> list= usersService.login("123456","123456");
+        Assert.assertEquals(1,list.size());
     }
 }
