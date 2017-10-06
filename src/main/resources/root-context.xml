@@ -36,8 +36,7 @@
     <!-- MyBatis配置 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="typeAliasesPackage" value="org.thethreepig.question.dao"/>
-        <property name="mapperLocations" value="classpath:mapper/*.xml" />
+        <property name="mapperLocations" value="classpath:**/dao/*.xml" />
         <property name="configLocation" value="classpath:mybatis.xml"/>
     </bean>
 
@@ -47,9 +46,9 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
-    <context:component-scan base-package="org.thethreepig.question.controller">
-        <context:include-filter  type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    <context:component-scan base-package="org.thethreepig.question">
+        <context:exclude-filter  type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter  type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
 </beans>
