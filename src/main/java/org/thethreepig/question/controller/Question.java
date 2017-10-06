@@ -21,7 +21,7 @@ public class Question {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		List<Users> list = usersService.Login("123456", "123456");
+		List<Users> list = usersService.login("123456", "123456");
 		return "index";
 	}
 
