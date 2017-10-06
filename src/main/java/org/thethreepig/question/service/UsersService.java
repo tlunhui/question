@@ -19,7 +19,7 @@ public class UsersService {
     @Autowired
     UserMapper userMapper;
 
-    public List<Users> Login(String userName,String password)
+    public List<Users> login(String userName,String password)
     {
         Map<String,String> map=new HashMap<String, String>();
         map.put("userName",userName);
