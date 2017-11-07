@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thethreepig.question.ProblemLaberDao">
+
+    <sql id="modelCondition">
+        <where>
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="labelId != null ">
+                and label_id = #{labelId}
+            </if>
+            <if test="problemId != null ">
+                and problem_id = #{problemId}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="qeuryBySelective" resultType="org.thethreepig.question.model.ProblemLaber">
+        select * from problem_laber
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="qeuryCountBySelective" resultType="long">
+        select count(*) from problem_laber
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(*) from problem_laber
+        <include refid="condition"/>
+    </select>
+
+    <select id="getById" resultType="org.thethreepig.question.model.ProblemLaber">
+        SELECT *
+        FROM problem_laber
+        <where>
+            and id = #{problemId}
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO problem_laber (
+        <trim prefix="" suffixOverrides="," suffix="">
+            id,
+            label_id,
+            problem_id,
+        </trim>
+        )
+        VALUES
+        (
+        <trim prefix="" suffixOverrides="," suffix="">
+            #{id} ,
+            #{labelId} ,
+            #{problemId} ,
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE problem_laber
+        <set>
+            label_id = #{labelId} ,
+            problem_id = #{problemId} ,
+        </set>
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+    <update id="updateSelectiveById">
+        update problem_laber
+        <set>
+            <if test="id!= null ">
+                id= #{id} ,
+            </if>
+            <if test="labelId!= null ">
+                label_id= #{labelId} ,
+            </if>
+            <if test="problemId!= null ">
+                problem_id= #{problemId} ,
+            </if>
+        </set>
+
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM problem_laber
+        <where>
+            id= #{id} ,
+        </where>
+    </delete>
+
+    <delete id="deleteBySelective">
+        DELETE FROM problem_laber
+        <where>
+            <include refid="modelCondition"/>
+        </where>
+    </delete>
+
+    <update id="hidden">
+        update problem_laber set delete_status =2
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+</mapper>

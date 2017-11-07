@@ -2,17 +2,14 @@ package org.thethreepig.question.dao;
 
 import java.util.List;
 
-/**
- * Created by zhaod on 2017/9/21.
- * mybatis dao层父类接口方法
- */
 public interface BaseMapper<T> {
-    T selectByPrimaryKey(Object obj);
-    List<T> selectSelective(Object obj);
-    Number countSelective(Object obj);
-    void deleteByPrimaryKey(Object obj);
-    void deleteSelective(Object obj);
-    void insert(Object obj);
-    void updateByPrimaryKey(Object obj);
-    void updateSelective(Object obj);
+    List<T> qeuryBySelective(T t);
+    long qeuryCountBySelective(T t);
+    long queryCount(T t);
+    List<T> getById(Integer id);
+    int insert(T t);
+    int update(T t);
+    int updateSelectiveById(Integer id);
+    int deleteById(Integer id);
+    int deleteBySelective(T t);
 }

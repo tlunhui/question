@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thethreepig.question.ProblemDao">
+    <!--
+       <sql id="condition">
+        <where>
+                 <if test="problemId != null  ">
+                and problem_id =         #{problemId}        
+        </if>
+                <if test="title != null  and title!='' ">
+                and title =         #{title}        
+        </if>
+                <if test="usersId != null  ">
+                and users_id =         #{usersId}        
+        </if>
+                <if test="usersName != null  ">
+                and users_name =         #{usersName}        
+        </if>
+                <if test="createTime != null  ">
+                and create_time =         #{createTime}        
+        </if>
+                <if test="updateTime != null  ">
+                and update_time =         #{updateTime}        
+        </if>
+                <if test="voteCount != null  ">
+                and vote_count =         #{voteCount}        
+        </if>
+                <if test="viewCount != null  ">
+                and view_count =         #{viewCount}        
+        </if>
+                <if test="answerCount != null  ">
+                and answer_count =         #{answerCount}        
+        </if>
+                <if test="content != null  ">
+                and content =         #{content}        
+        </if>
+                <if test="deleteed != null  ">
+                and deleteed =         #{deleteed}        
+        </if>
+                </where>
+    </sql>
+        -->
+
+    <select id="query" resultType="org.thethreepig.question.model.Problem">
+        select * from problem
+        <include refid="condition"/>
+        ORDER BY ID DESC
+    </select>
+
+    <select id="queryAll" resultType="org.thethreepig.question.model.Problem">
+        select * from problem
+        <include refid="condition"/>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thethreepig.question.UsersDao">
+
+    <sql id="modelCondition">
+        <where>
+            <if test="id != null ">
+                and id = #{id}
+            </if>
+            <if test="name != null ">
+                and name = #{name}
+            </if>
+            <if test="pwd != null ">
+                and pwd = #{pwd}
+            </if>
+            <if test="nickname != null ">
+                and nickname = #{nickname}
+            </if>
+            <if test="createDate != null ">
+                and create_date = #{createDate}
+            </if>
+            <if test="lastLoginTime != null ">
+                and last_login_time = #{lastLoginTime}
+            </if>
+            <if test="errorCount != null ">
+                and error_count = #{errorCount}
+            </if>
+            <if test="lastErrorTime != null ">
+                and last_error_time = #{lastErrorTime}
+            </if>
+            <if test="deleteed != null ">
+                and deleteed = #{deleteed}
+            </if>
+            <if test="lastPromptTime != null ">
+                and last_prompt_time = #{lastPromptTime}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="qeuryBySelective" resultType="org.thethreepig.question.model.Users">
+        select * from users
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="qeuryCountBySelective" resultType="long">
+        select count(*) from users
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(*) from users
+        <include refid="condition"/>
+    </select>
+
+    <select id="getById" resultType="org.thethreepig.question.model.Users">
+        SELECT *
+        FROM users
+        <where>
+            and id = #{lastPromptTime}
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO users (
+        <trim prefix="" suffixOverrides="," suffix="">
+            id,
+            name,
+            pwd,
+            nickname,
+            create_date,
+            last_login_time,
+            error_count,
+            last_error_time,
+            deleteed,
+            last_prompt_time,
+        </trim>
+        )
+        VALUES
+        (
+        <trim prefix="" suffixOverrides="," suffix="">
+            #{id} ,
+            #{name} ,
+            #{pwd} ,
+            #{nickname} ,
+            #{createDate} ,
+            #{lastLoginTime} ,
+            #{errorCount} ,
+            #{lastErrorTime} ,
+            #{deleteed} ,
+            #{lastPromptTime} ,
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE users
+        <set>
+            name = #{name} ,
+            pwd = #{pwd} ,
+            nickname = #{nickname} ,
+            create_date = #{createDate} ,
+            last_login_time = #{lastLoginTime} ,
+            error_count = #{errorCount} ,
+            last_error_time = #{lastErrorTime} ,
+            deleteed = #{deleteed} ,
+            last_prompt_time = #{lastPromptTime} ,
+        </set>
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+    <update id="updateSelectiveById">
+        update users
+        <set>
+            <if test="id!= null ">
+                id= #{id} ,
+            </if>
+            <if test="name!= null ">
+                name= #{name} ,
+            </if>
+            <if test="pwd!= null ">
+                pwd= #{pwd} ,
+            </if>
+            <if test="nickname!= null ">
+                nickname= #{nickname} ,
+            </if>
+            <if test="createDate!= null ">
+                create_date= #{createDate} ,
+            </if>
+            <if test="lastLoginTime!= null ">
+                last_login_time= #{lastLoginTime} ,
+            </if>
+            <if test="errorCount!= null ">
+                error_count= #{errorCount} ,
+            </if>
+            <if test="lastErrorTime!= null ">
+                last_error_time= #{lastErrorTime} ,
+            </if>
+            <if test="deleteed!= null ">
+                deleteed= #{deleteed} ,
+            </if>
+            <if test="lastPromptTime!= null ">
+                last_prompt_time= #{lastPromptTime} ,
+            </if>
+        </set>
+
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM users
+        <where>
+            id= #{id} ,
+        </where>
+    </delete>
+
+    <delete id="deleteBySelective">
+        DELETE FROM users
+        <where>
+            <include refid="modelCondition"/>
+        </where>
+    </delete>
+
+    <update id="hidden">
+        update users set delete_status =2
+        <where>
+            id= #{id} ,
+        </where>
+    </update>
+
+</mapper>

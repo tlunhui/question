@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thethreepig.question.LabelDao">
+
+    <sql id="modelCondition">
+        <where>
+            <if test="labelId != null ">
+                and label_id = #{labelId}
+            </if>
+            <if test="labelName != null ">
+                and label_name = #{labelName}
+            </if>
+            <if test="deleteflag != null ">
+                and deleteFlag = #{deleteflag}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="qeuryBySelective" resultType="org.thethreepig.question.model.Label">
+        select * from label
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="qeuryCountBySelective" resultType="long">
+        select count(*) from label
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(*) from label
+        <include refid="condition"/>
+    </select>
+
+    <select id="getById" resultType="org.thethreepig.question.model.Label">
+        SELECT *
+        FROM label
+        <where>
+            and id = #{deleteflag}
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO label (
+        <trim prefix="" suffixOverrides="," suffix="">
+            label_id,
+            label_name,
+            deleteFlag,
+        </trim>
+        )
+        VALUES
+        (
+        <trim prefix="" suffixOverrides="," suffix="">
+            #{labelId} ,
+            #{labelName} ,
+            #{deleteflag} ,
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE label
+        <set>
+            label_name = #{labelName} ,
+            deleteFlag = #{deleteflag} ,
+        </set>
+        <where>
+            label_id= #{labelId} ,
+        </where>
+    </update>
+
+    <update id="updateSelectiveById">
+        update label
+        <set>
+            <if test="labelId!= null ">
+                label_id= #{labelId} ,
+            </if>
+            <if test="labelName!= null ">
+                label_name= #{labelName} ,
+            </if>
+            <if test="deleteflag!= null ">
+                deleteFlag= #{deleteflag} ,
+            </if>
+        </set>
+
+        <where>
+            label_id= #{labelId} ,
+        </where>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM label
+        <where>
+            label_id= #{labelId} ,
+        </where>
+    </delete>
+
+    <delete id="deleteBySelective">
+        DELETE FROM label
+        <where>
+            <include refid="modelCondition"/>
+        </where>
+    </delete>
+
+    <update id="hidden">
+        update label set delete_status =2
+        <where>
+            label_id= #{labelId} ,
+        </where>
+    </update>
+
+</mapper>

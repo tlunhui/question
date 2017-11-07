@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thethreepig.question.ProblemDao">
+
+    <sql id="modelCondition">
+        <where>
+            <if test="problemId != null ">
+                and problem_id = #{problemId}
+            </if>
+            <if test="title != null ">
+                and title = #{title}
+            </if>
+            <if test="usersId != null ">
+                and users_id = #{usersId}
+            </if>
+            <if test="usersName != null ">
+                and users_name = #{usersName}
+            </if>
+            <if test="createTime != null ">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null ">
+                and update_time = #{updateTime}
+            </if>
+            <if test="voteCount != null ">
+                and vote_count = #{voteCount}
+            </if>
+            <if test="viewCount != null ">
+                and view_count = #{viewCount}
+            </if>
+            <if test="answerCount != null ">
+                and answer_count = #{answerCount}
+            </if>
+            <if test="content != null ">
+                and content = #{content}
+            </if>
+            <if test="deleteed != null ">
+                and deleteed = #{deleteed}
+            </if>
+        </where>
+    </sql>
+
+    <select id="qeuryBySelective" resultType="org.thethreepig.question.model.Problem">
+        select * from problem
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="qeuryCountBySelective" resultType="long">
+        select count(*) from problem
+        <include refid="modelCondition"/>
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(*) from problem
+        <include refid="condition"/>
+    </select>
+
+    <select id="getById" resultType="org.thethreepig.question.model.Problem">
+        SELECT *
+        FROM problem
+        <where>
+            and id = #{deleteed}
+        </where>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO problem (
+        <trim prefix="" suffixOverrides="," suffix="">
+            problem_id,
+            title,
+            users_id,
+            users_name,
+            create_time,
+            update_time,
+            vote_count,
+            view_count,
+            answer_count,
+            content,
+            deleteed,
+        </trim>
+        )
+        VALUES
+        (
+        <trim prefix="" suffixOverrides="," suffix="">
+            #{problemId} ,
+            #{title} ,
+            #{usersId} ,
+            #{usersName} ,
+            #{createTime} ,
+            #{updateTime} ,
+            #{voteCount} ,
+            #{viewCount} ,
+            #{answerCount} ,
+            #{content} ,
+            #{deleteed} ,
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE problem
+        <set>
+            title = #{title} ,
+            users_id = #{usersId} ,
+            users_name = #{usersName} ,
+            update_time = #{updateTime} ,
+            vote_count = #{voteCount} ,
+            view_count = #{viewCount} ,
+            answer_count = #{answerCount} ,
+            content = #{content} ,
+            deleteed = #{deleteed} ,
+        </set>
+        <where>
+            problem_id= #{problemId} ,
+        </where>
+    </update>
+
+    <update id="updateSelectiveById">
+        update problem
+        <set>
+            <if test="problemId!= null ">
+                problem_id= #{problemId} ,
+            </if>
+            <if test="title!= null ">
+                title= #{title} ,
+            </if>
+            <if test="usersId!= null ">
+                users_id= #{usersId} ,
+            </if>
+            <if test="usersName!= null ">
+                users_name= #{usersName} ,
+            </if>
+            <if test="createTime!= null ">
+                create_time= #{createTime} ,
+            </if>
+            <if test="updateTime!= null ">
+                update_time= #{updateTime} ,
+            </if>
+            <if test="voteCount!= null ">
+                vote_count= #{voteCount} ,
+            </if>
+            <if test="viewCount!= null ">
+                view_count= #{viewCount} ,
+            </if>
+            <if test="answerCount!= null ">
+                answer_count= #{answerCount} ,
+            </if>
+            <if test="content!= null ">
+                content= #{content} ,
+            </if>
+            <if test="deleteed!= null ">
+                deleteed= #{deleteed} ,
+            </if>
+        </set>
+
+        <where>
+            problem_id= #{problemId} ,
+        </where>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM problem
+        <where>
+            problem_id= #{problemId} ,
+        </where>
+    </delete>
+
+    <delete id="deleteBySelective">
+        DELETE FROM problem
+        <where>
+            <include refid="modelCondition"/>
+        </where>
+    </delete>
+
+    <update id="hidden">
+        update problem set delete_status =2
+        <where>
+            problem_id= #{problemId} ,
+        </where>
+    </update>
+
+</mapper>

@@ -1,30 +1,20 @@
 package org.thethreepig.question.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.thethreepig.question.dao.UserMapper;
+import org.thethreepig.question.dao.UsersMapper;
 import org.thethreepig.question.model.Users;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by zhaod on 2017/9/21.
+ * Created by 王有名 on 2017/11/7.
  */
 @Service
 public class UsersService {
-
     @Autowired
-    UserMapper userMapper;
+    UsersMapper usersMapper;
 
-    public List<Users> login(String userName,String password)
-    {
-        Map<String,String> map=new HashMap<String, String>();
-        map.put("userName",userName);
-        map.put("password",password);
-        List<Users> list= userMapper.selectSelective(map);
-        return list;
+    public List<Users> login(String s, String s1) {
     }
 }
