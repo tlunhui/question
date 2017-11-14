@@ -30,7 +30,7 @@ function summerInit(documentId) {
                 return '<a id="message'+ item.split(",")[0] +'" class="message_">@' + item.split(",")[1] + '</a>';
             },
             content: function (item) {
-                return $("#message"+ item.split(",")[0]).attr("href",ctx+"/user/"+item.split(",")[0]+".htm").removeAttr("id")[0];
+                return $("#message"+ item.split(",")[0]).attr("href",ctx+"/user/"+item.split(",")[0]+"").removeAttr("id")[0];
             }
         }
     });
@@ -38,7 +38,7 @@ function summerInit(documentId) {
         var result;
         $.ajax({
             type:"POST",
-            url:ctx+"/user/users.htm",
+            url:ctx+"/user/users",
             dataType:"json",
             async:false,
             success:function(data){
@@ -55,7 +55,7 @@ function sendFile(file,editor,welEditable) {
     $.ajax({
         data: data,
         type: "POST",
-        url: ctx +"/summernote/imgUpload.htm",
+        url: ctx +"/summernote/imgUpload",
         cache: false,
         contentType: false,
         processData: false,

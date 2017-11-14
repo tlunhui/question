@@ -12,7 +12,7 @@ $(document).ready(function () {
             $.ajax({
                 data: $("#problemForm").serializeArray(),
                 type: "POST",
-                url: ctx + "/problem/store.htm",
+                url: ctx + "/problem/store",
                 dataType: "json",
                 success: function (data) {
                     console.log(data);

@@ -35,6 +35,6 @@ function insertNameToContent(userId,name){
     updataSummernote();
     userId = userId.trim();
     name = name.trim();
-    $('#summernote').summernote('code',$('#summernote').summernote('code')+"<a class='message_' href='"+ctx+"/user/"+userId+".htm'>@"+name+"</a>");
+    $('#summernote').summernote('code',$('#summernote').summernote('code')+"<a class='message_' href='"+ctx+"/user/"+userId+"'>@"+name+"</a>");
 }
 

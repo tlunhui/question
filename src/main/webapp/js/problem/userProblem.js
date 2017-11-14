@@ -6,7 +6,7 @@ $(document).ready(function () {
     var begincodeUserId = $("#begincodeUserId").val();
     $.ajax({
         type: "GET",
-        url: ctx+"/user/problem/" + begincodeUserId + ".htm",
+        url: ctx+"/user/problem/" + begincodeUserId + "",
         dataType: "json",
         success: function (data) {
             if (data.code == 0) {
@@ -21,7 +21,7 @@ $(document).ready(function () {
     $("#problem").click(function () {
         $.ajax({
             type: "GET",
-            url: ctx+ "/user/problem/" + begincodeUserId + ".htm",
+            url: ctx+ "/user/problem/" + begincodeUserId + "",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
     $("#answer").click(function () {
         $.ajax({
             type: "GET",
-            url: ctx+"/user/answer/" + begincodeUserId + ".htm?page=1",
+            url: ctx+"/user/answer/" + begincodeUserId + "?page=1",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -51,7 +51,7 @@ $(document).ready(function () {
     $("#collection").click(function () {
         $.ajax({
             type: "GET",
-            url: ctx+"/user/collect/" + begincodeUserId + ".htm?page=1",
+            url: ctx+"/user/collect/" + begincodeUserId + "?page=1",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -109,7 +109,7 @@ function answerHtml(id, data) {
             + '<h2 class="title l">'
             + '<a href=" '+ ctx+'/problem/'
             + data.data[i].problemId
-            + '.htm">'
+            + '">'
             + content
             + ' </a></h2>'
             + '</span>'
@@ -168,7 +168,7 @@ function getProblems(page, id) {
             + '</ul>'
             + '<span class="keyword-list ">'
             + '<h2 class="title l"><a href="' + ctx + '/problem/'
-            + page.data.data[i].problem.problemId + ".htm"
+            + page.data.data[i].problem.problemId + ""
             + '">'
             + page.data.data[i].problem.title
             + '</a></h2>'
@@ -191,8 +191,8 @@ function getProblems(page, id) {
  */
 function problemFormatTime(answerUserId,problemAuthorNameId,problemAuthorName, size, answerName, time, answerTime) {
     if (size == 0) {
-        return "<a href='" + ctx + "/user/" + problemAuthorNameId + ".htm'>" + problemAuthorName + "</a>" + " " + formatTime(time);
+        return "<a href='" + ctx + "/user/" + problemAuthorNameId + "'>" + problemAuthorName + "</a>" + " " + formatTime(time);
     } else {
-        return "<a href=" + ctx + "'/user/" + answerUserId + ".htm'>" + answerName + "</a>" + " " + formatTime(answerTime);
+        return "<a href=" + ctx + "'/user/" + answerUserId + "'>" + answerName + "</a>" + " " + formatTime(answerTime);
     }
 }

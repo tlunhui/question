@@ -14,7 +14,4 @@ import java.util.List;
 public class UsersService {
     @Autowired
     UsersMapper usersMapper;
-
-    public List<Users> login(String s, String s1) {
-    }
 }

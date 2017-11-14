@@ -17,12 +17,12 @@ $(document).ready(function () {
 function getLabels() {
     $.ajax({
         type: 'POST',
-        url: ctx + "/label/getLabel.htm",
+        url: ctx + "/label/getLabel",
         success: function (data) {
             var list = data.data;
             if (list != null && list != "") {
                 for (var i = 0; i < list.length; i++) {
-                    $(".tag-list").append("<a target='_blank' class='list-tag ' style='cursor:pointer' href='" + ctx + "/label/selectProblemLabel.htm?id=" + list[i].labelId + "'>" + list[i].labelName + "</a>");
+                    $(".tag-list").append("<a target='_blank' class='list-tag ' style='cursor:pointer' href='" + ctx + "/label/selectProblemLabel?id=" + list[i].labelId + "'>" + list[i].labelName + "</a>");
                 }
             }
         },
@@ -33,12 +33,12 @@ function getActivers() {
     $(".list-group").html("<a class='list-group-item disabled'>最活跃用户</a>");
     $.ajax({
         type: 'POST',
-        url: ctx + "/user/activer.htm",
+        url: ctx + "/user/activer",
         success: function (data) {
             var list = data.data;
             if (list != null && list != "") {
                 for (var i = 0; i < list.length; i++) {
-                    $(".list-group").append("<a class='list-group-item' href='" + ctx + "/user/" + list[i].begincodeUserId + ".htm'>" + list[i].nickname + "");
+                    $(".list-group").append("<a class='list-group-item' href='" + ctx + "/user/" + list[i].begincodeUserId + "'>" + list[i].nickname + "");
                 }
             }
         },
@@ -53,7 +53,7 @@ function MessageAndMyProblem() {
             $.ajax({
                 type: "POST",
                 dataType: "JSON",
-                url: ctx + "/message/count.htm",
+                url: ctx + "/message/count",
                 success: function (data) {
                     if (data.code == 0) {
                         $("#messageCount").html(data.data);
@@ -70,7 +70,7 @@ function messageClick() {
         messageCount();
         $.ajax({
             type: "POST",
-            url: ctx + "/message/list.htm?page=1",
+            url: ctx + "/message/list?page=1",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -88,7 +88,7 @@ function messageCount() {
     $.ajax({
         type: "POST",
         dataType: "JSON",
-        url: ctx + "/message/count.htm",
+        url: ctx + "/message/count",
         success: function (data) {
             if (data.code == 0) {
                 $("#messageCount").html(data.data);
@@ -110,7 +110,7 @@ function messageHtml(data, id) {
             var titleSub = "";
             if (data[i].title.length > 30) {
                 titleSub = '<h2 class="title l"><a href="' + ctx + '/problem/message/'
-                    + data[i].problemId + ".htm"
+                    + data[i].problemId + ""
                     + '"data-toggle="tooltip" data-placement="top" title='
                     + data[i].title
                     + '>'
@@ -118,7 +118,7 @@ function messageHtml(data, id) {
                 +'</a></h2>';
             } else {
                 titleSub = '<h2 class="title l"><a href="' + ctx + '/problem/message/'
-                    + data[i].problemId + '.htm'
+                    + data[i].problemId + ''
                     + '" data-toggle="tooltip" data-placement="top">'
                     + data[i].title;
                 +'</a></h2>';
@@ -159,7 +159,7 @@ function messageHtml(data, id) {
                 contentSub = '<h2 class="title l">'
                     + '<a href="' + ctx + '/problem/answer/'
                     + data[i].answerId + "/" + data[i].problemId
-                    + '.htm'
+                    + ''
                     + '"data-toggle="tooltip" data-placement="top" title="'
                     + data[i].content
                     + '">'
@@ -169,7 +169,7 @@ function messageHtml(data, id) {
                 contentSub = '<h2 class="title l">'
                     + '<a href="' + ctx + '/problem/answer/'
                     + data[i].answerId + "/" + data[i].problemId
-                    + '.htm'
+                    + ''
                     + '"data-toggle="tooltip" data-placement="top">'
                     + data[i].content
                     + '</a></h2>';

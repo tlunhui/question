@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="commons/taglibs.jsp" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <script>
+        var ctx = "${ctx}";
+    </script>
     <script src="${ctx}/js/jquery/jquery-3.1.0.min.js"></script>
     <script src="${ctx}/js/jquery/jqPaginator.min.js"></script>
     <meta charset="utf-8">
@@ -61,7 +65,7 @@
         </div>
         <div class="col-md-3">
             <p>
-                <a href="${ctx}/problem/create.htm" class="btn btn-primary btn-lg btn-block">我要提问</a>
+                <a href="${ctx}/problem/create" class="btn btn-primary btn-lg btn-block">我要提问</a>
             </p>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -93,5 +97,6 @@
 <script src="${ctx}/js/problem/getProblems.js"></script>
 <script src="${ctx}/js/problem/problem.js"></script>
 <script src="${ctx}/js/index/onLoad.js"></script>
+<script src="${ctx}/js/problem/userProblem.js"></script>
 </body>
 </html>

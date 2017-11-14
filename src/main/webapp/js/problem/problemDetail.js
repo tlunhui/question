@@ -5,7 +5,7 @@ $(document).ready(function () {
     var problemId = $("#problem_id").val();
     $.ajax({
         type: "GET",
-        url: ctx + "/problem/view/" + problemId + ".htm",
+        url: ctx + "/problem/view/" + problemId + "",
         dataType: "json",
         success: function (data) {
             if (data.code != 0) {
@@ -17,7 +17,7 @@ $(document).ready(function () {
     $("#collection").click(function () {
         $.ajax({
             type: "POST",
-            url: ctx + "/problem/collect/" + problemId + ".htm",
+            url: ctx + "/problem/collect/" + problemId + "",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
     $("#vote").click(function () {
         $.ajax({
             type: "POST",
-            url: ctx + "/problem/vote/" + problemId + ".htm",
+            url: ctx + "/problem/vote/" + problemId + "",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -65,7 +65,7 @@ $(document).ready(function () {
     $("#clickVote").click(function () {
         $.ajax({
             type: "POST",
-            url: ctx + "/problem/vote/" + problemId + ".htm",
+            url: ctx + "/problem/vote/" + problemId + "",
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
@@ -87,13 +87,13 @@ $(document).ready(function () {
     })
     $.ajax({
         type: 'POST',
-        url: ctx + "/label/getLabel.htm",
+        url: ctx + "/label/getLabel",
         dataType: "json",
         async: true,
         success: function (data) {
             var list = data.data;
             for (var i = 0; i < list.length; i++) {
-                $("#labelBody").append("<a target='_blank' class='list-tag ' href='" + ctx + "/label/selectProblemLabel.htm?id=" + list[i].labelId + "'>" + list[i].labelName + "</a>");
+                $("#labelBody").append("<a target='_blank' class='list-tag ' href='" + ctx + "/label/selectProblemLabel?id=" + list[i].labelId + "'>" + list[i].labelName + "</a>");
             }
         }
     });
@@ -109,7 +109,7 @@ $(document).ready(function () {
             $.ajax({
                 data: $("#answerForm").serializeArray(),
                 type: "POST",
-                url: ctx + "/answer/reply.htm",
+                url: ctx + "/answer/reply",
                 dataType: "json",
                 async: true,
                 success: function (data) {
@@ -170,7 +170,7 @@ function sendFeedback(answerId) {
     $.ajax({
         data: answer,
         type: "POST",
-        url: ctx + "/answer/feedback.htm",
+        url: ctx + "/answer/feedback",
         dataType: "json",
         contentType: false,
         processData: false,
@@ -189,7 +189,7 @@ function sendAdoptAnswer(answerId) {
     $.ajax({
         data: answer,
         type: "POST",
-        url: ctx + "/answer/answerAdopt.htm",
+        url: ctx + "/answer/answerAdopt",
         dataType: "json",
         contentType: false,
         processData: false,
@@ -218,7 +218,7 @@ function ansAgree(answerId,agreeFlag,thisClick) {
     $.ajax({
         data: ansAgree,
         type: "POST",
-        url: ctx + "/ansAgree/setAgree.htm",
+        url: ctx + "/ansAgree/setAgree",
         dataType: "json",
         contentType: false,
         processData: false,
@@ -242,7 +242,7 @@ function ansOpposition(answerId,agreeFlag,thisClick) {
         $.ajax({
             data: ansAgree,
             type: "POST",
-            url: ctx + "/ansAgree/setOpposition.htm",
+            url: ctx + "/ansAgree/setOpposition",
             dataType: "json",
             contentType: false,
             processData: false,
@@ -333,7 +333,7 @@ function updateAnswer(data, id, ansAgreeFlag) {
         + '<div class="col-md-2 col-sm-2 hidden-xs answer__info--author">'
         + '<div class=" answer__info--author-warp">'
         + '<a '
-        + 'href="' + ctx + '/user/' + data.data.begincodeUserId + '.htm">'
+        + 'href="' + ctx + '/user/' + data.data.begincodeUserId + '">'
         + data.data.userName
         + '</a><span class="answer__info--author-rank"> </span></div>'
         + '</div>'

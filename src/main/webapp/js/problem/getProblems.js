@@ -48,7 +48,7 @@ function getProblems(page, id) {
             + '</ul>'
             + '<span class="keyword-list ">'
             + '<h2 class="title l"><a href="'+ctx+'/problem/'
-            + page.data.data[i].problem.problemId + ".htm"
+            + page.data.data[i].problem.problemId + ""
             + '">'
             + page.data.data[i].problem.title
             + '</a></h2>'
@@ -71,8 +71,8 @@ function getProblems(page, id) {
  */
 function problemFormatTime(answerUserId,problemAuthorNameId,problemAuthorName, size, answerName, time, answerTime) {
     if (size == 0) {
-        return "<a href='" + ctx + "/user/" + problemAuthorNameId + ".htm'>" + problemAuthorName + "</a>" + " " + formatTime(time) + "提问";
+        return "<a href='" + ctx + "/user/" + problemAuthorNameId + "'>" + problemAuthorName + "</a>" + " " + formatTime(time) + "提问";
     } else {
-        return "<a href='" + ctx + "/user/" + answerUserId + ".htm'>" + answerName + "</a>" + " " + formatTime(answerTime) + "回答";
+        return "<a href='" + ctx + "/user/" + answerUserId + "'>" + answerName + "</a>" + " " + formatTime(answerTime) + "回答";
     }
 }

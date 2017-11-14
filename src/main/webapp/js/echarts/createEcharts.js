@@ -7,7 +7,7 @@ $(document).ready(function () {
     var myChart = echarts.init(document.getElementById('echart'));
     $.ajax({
         type: "GET",
-        url: ctx+"/user/echarts/" + begincodeUserId + ".htm",
+        url: ctx+"/user/echarts/" + begincodeUserId + "",
         dataType: "json",
         success: function (data) {
             myChart.showLoading();
